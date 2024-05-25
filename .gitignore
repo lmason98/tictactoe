@@ -3,3 +3,7 @@
 
 # Frontend
 node_modules/
+
+# Backend
+.env
+.ttt_env/

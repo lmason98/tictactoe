@@ -36,11 +36,8 @@ function TicTacToe({size}) {
     return border
   }
 
-  // Cell on click
+  // Cell on click, fill cell and swap player turn
   const handleCellClick = (pos) => {
-    console.log('click pos :', pos)
-    console.log(gameState)
-
     let newGameState = gameState
     newGameState[pos.row][pos.col] = playerTurn
     setGameState(newGameState)
@@ -51,8 +48,6 @@ function TicTacToe({size}) {
   useEffect(() => {
     calcCellSize(getWindowSize())
     const windowResize = () => calcCellSize(getWindowSize())
-
-    console.log('game state :', gameState)
 
     window.addEventListener('resize', windowResize)
     return () => window.removeEventListener('resize', windowResize)
