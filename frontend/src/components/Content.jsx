@@ -6,7 +6,7 @@ import TicTacToe from "./TicTacToe";
 function Content({handleLogout}) {
 
   const [gameRunning, setGameRunning] = useState(false)
-  const [gameSize, setGameSize] = useState(6)
+  const [gameSize, setGameSize] = useState(3)
 
   return (
     <Box sx={{display: 'flex', backgroundColor: '#eaeaea', height: '100%'}}>

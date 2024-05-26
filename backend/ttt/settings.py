@@ -31,7 +31,7 @@ DEBUG = bool(environ.get('DEBUG', default=0))
 
 ALLOWED_HOSTS = environ.get('ALLOWED_HOSTS').split(' ')
 CSRF_TRUSTED_ORIGINS = environ.get("CSRF_TRUSTED_ORIGINS").split(' ')
-# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -44,10 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -82,8 +84,8 @@ REST_FRAMEWORK = {
     'TIME_FORMAT': '%-I:%M %p',
     'DATE_FORMAT': '%b %d, %y',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication'
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
 }
 

@@ -1,7 +1,7 @@
 import {Grid} from '@mui/material'
 import '../css/Cell.css'
 
-function Cell({value, position, size, border, onClick}) {
+function Cell({value, position, gameOver, size, border, onClick}) {
 
   const handleClick = () => onClick(position)
 
@@ -11,7 +11,7 @@ function Cell({value, position, size, border, onClick}) {
       container
       justifyContent='center'
       alignItems='center'
-      className={value ? 'cell-filled' : 'cell'}
+      className={value || gameOver ? 'cell-filled' : 'cell'}
       sx={{...border, maxWidth: size, maxHeight: size, fontSize: 30, fontWeight: 'bold', color: '#1976d2'}}
       onClick={handleClick}
     >
