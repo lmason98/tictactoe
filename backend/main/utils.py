@@ -144,15 +144,14 @@ def utility(board):
 
 def minimax(board, is_max, depth):
 
+	if terminal(board)[0]:
+		return utility(board), depth
+
 	if is_max:
 		value = float('-inf')
 		for action in actions(board):
 			new_board = result(board, action)
-
-			if terminal(new_board)[0]:
-				return utility(new_board), depth
-
-			new_value, depth = minimax(new_board, not is_max, depth + 1)
+			new_value, _ = minimax(new_board, False, depth + 1)
 			value = max(value, new_value)
 
 		return value, depth
@@ -160,11 +159,7 @@ def minimax(board, is_max, depth):
 		value = float('inf')
 		for action in actions(board):
 			new_board = result(board, action)
-
-			if terminal(new_board)[0]:
-				return utility(new_board), depth
-
-			new_value, depth = minimax(new_board, not is_max, depth + 1)
+			new_value, _ = minimax(new_board, True, depth + 1)
 			value = min(value, new_value)
 
 		return value, depth
@@ -174,12 +169,10 @@ def optimal_move(board):
 	if terminal(board)[0]:
 		return
 
-	ply = player(board)
 	optimal_action, value = None, float('inf')
 	for action in actions(board):
 		new_board = result(board, action)
-		new_value, depth = minimax(new_board, ply == X, 0)
-		print('move depth :', depth)
+		new_value, _ = minimax(new_board, True, 0)
 
 		if new_value < value:
 			value = new_value
