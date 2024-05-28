@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from main.utils import minimax, terminal, result, optimal_move
+from main.utils import terminal, result, optimal_move
 
 
 class TicTacToeAIView(APIView):
@@ -23,9 +23,7 @@ class TicTacToeAIView(APIView):
 		if terminal_board:
 			resp = {'winner': ply_winner, 'gameOver': True, 'board': board}
 		else:
-			print('pre ai move')
 			ai_move = optimal_move(board)
-			print('post ai move')
 			board = result(board, ai_move)
 			terminal_board, ply_winner = terminal(board)
 

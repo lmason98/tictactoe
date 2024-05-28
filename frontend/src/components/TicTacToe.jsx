@@ -10,16 +10,22 @@ const getWindowSize = () => {
   return {w: innerWidth, h: innerHeight}
 }
 
-function TicTacToe({size}) {
+function TicTacToe({size, doEndGame}) {
 
   const [cellSize, setCellSize] = useState('200px')
   const [gameState, setGameState] = useState(Array(size).fill(null).map(() =>
     new Array(size).fill(null))) // Game state as 2d array, inited to null
   const [player, setPlayer] = useState(PLAYER_X)
   const [playerTurn, setPlayerTurn] = useState(PLAYER_X)
-  const [winner, setWinner] = useState(null)
   const [gameOver, setGameOver] = useState(false)
   const [statusText, setStatusText] = useState(`Player ${playerTurn}'s turn.`)
+
+  const handleGameOver = () => {
+    setGameOver(true)
+
+    // Reset the game board
+    setTimeout(() => doEndGame(), 5000)
+  }
 
   // Calc cell size based on window size and board size prop
   const calcCellSize = (windowSize) => {
@@ -58,13 +64,12 @@ function TicTacToe({size}) {
         setGameState(resp.data.board)
 
         if (resp.data.gameOver) {
-          if (resp.data.winner) {
-            setWinner(resp.data.winner)
+          if (resp.data.winner)
             setStatusText(`Player ${resp.data.winner} has won!`)
-          } else
+          else
             setStatusText('Nobody won!')
 
-          setGameOver(true)
+          handleGameOver()
         }
       })
     }

@@ -51,12 +51,10 @@ class AuthService {
   }
 
   login(user, pass) {
-    console.log('auth service login :', user)
   	return api.post('/auth/token/obtain', {
       username: user,
       password: pass
   	}).then(resp => {
-      console.log('auth service resp :', resp.data)
       if (resp.data.status === 'success') {
         this.setToken(resp.data.access)
         this.setRefreshToken(resp.data.refresh)
