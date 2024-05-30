@@ -84,7 +84,7 @@ REST_FRAMEWORK = {
     'TIME_FORMAT': '%-I:%M %p',
     'DATE_FORMAT': '%b %d, %y',
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
 }

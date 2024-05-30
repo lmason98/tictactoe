@@ -1,8 +1,9 @@
 from django.urls import path
 
-from .views import TicTacToeAIView
+from .views import TicTacToeView, StatsView
 
 
 urlpatterns = [
-	path('ai/', TicTacToeAIView.as_view(), name='ai'),
+	path('ai/', TicTacToeView.as_view()),
+	path('stats/', StatsView.as_view())
 ]

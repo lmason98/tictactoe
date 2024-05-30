@@ -12,7 +12,6 @@ class TokenObtainLifetimeSerializer(TokenObtainPairSerializer):
 		"""
 		Custom validation for correct error response to frontend
 		"""
-		print('obtain validate :', attrs)
 		try:
 			# Valid username
 			user = User.objects.get(username__iexact=attrs.get('username'))

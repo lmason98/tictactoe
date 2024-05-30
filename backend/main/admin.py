@@ -1,3 +1,17 @@
 from django.contrib import admin
 
-# Register your models here.
+from main.models import Game
+
+
+class CreatedUpdatedAdminMixin:
+
+	list_display = ('created', 'updated')
+
+
+class GameAdmin(CreatedUpdatedAdminMixin, admin.ModelAdmin):
+
+	list_display = CreatedUpdatedAdminMixin.list_display + ('id', 'player', 'win', 'tie', 'over')
+	search_fields = ('player',)
+
+
+admin.site.register(Game, GameAdmin)

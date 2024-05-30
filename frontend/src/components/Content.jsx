@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {AppBar, Box, Button, Grid, Toolbar, Typography} from '@mui/material'
-import {Logout, Add, Replay, FormatListNumbered} from '@mui/icons-material'
+import {Logout, Add, Person, FormatListNumbered} from '@mui/icons-material'
 import TicTacToe from './TicTacToe'
 import {getUserName} from '../utils/auth'
 
@@ -39,11 +39,11 @@ function Content({handleLogout}) {
         {/* Actions */}
         <Grid item container justifyContent='center' spacing={2} sx={{padding: '0 15px 0 15px', marginTop: '45px', maxHeight: '100px'}}>
           <Grid item>
-            <Button startIcon={<Add />} variant='contained' onClick={handleGameStart}>New Game</Button>
+            <Button startIcon={<Add />} variant='contained' onClick={handleGameStart} disabled={gameRunning}>New Game</Button>
           </Grid>
-          {/*<Grid item>*/}
-          {/*  <Button startIcon={<Replay />} variant='contained'>Load Game</Button>*/}
-          {/*</Grid>*/}
+          <Grid item>
+            <Button startIcon={<Person />} variant='contained'>Your Stats</Button>
+          </Grid>
           <Grid item>
             <Button startIcon={<FormatListNumbered />} variant='contained'>High Scores</Button>
           </Grid>
