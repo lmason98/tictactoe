@@ -18,6 +18,5 @@ class Game(CreatedUpdatedMixin):
 	Game model to save player wins, AI wins is count of games that are over that a player has not won
 	"""
 	player = models.ForeignKey(User, on_delete=models.CASCADE)
-	over = models.BooleanField(default=False)
 	win = models.BooleanField(default=False)
 	tie = models.BooleanField(default=False)

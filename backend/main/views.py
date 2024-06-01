@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -17,20 +18,23 @@ class TicTacToeView(APIView):
 
 		board = self.request.data.get('board')
 
-		terminal_board, ply_winner = terminal(board)
+		# Determine if player has won or tie
+		terminal_board, win = terminal(board)
 
 		if terminal_board:
 			# Save completed game
-			Game.objects.create(player=self.request.user, over=True, win=bool(ply_winner), tie=ply_winner is None)
-			resp = {'winner': ply_winner, 'gameOver': True, 'board': board}
+			Game.objects.create(player=self.request.user, win=win == 'X', tie=win is None)
+			resp = {'winner': win, 'gameOver': True, 'board': board}
 		else:
 			ai_move = optimal_move(board)
 			board = result(board, ai_move)
-			terminal_board, ply_winner = terminal(board)
 
-			# Check for AI win
+			# Determine if AI has won or tie
+			terminal_board, win = terminal(board)
+
 			if terminal_board:
-				resp = {'winner': ply_winner, 'gameOver': True, 'board': board}
+				Game.objects.create(player=self.request.user, win=win == 'X', tie=win is None)
+				resp = {'winner': win, 'gameOver': True, 'board': board}
 			else:
 				resp = {'board': board}
 
@@ -43,4 +47,30 @@ class StatsView(APIView):
 	"""
 
 	def get(self, request):
-		pass
+
+		data = []
+		for player in User.objects.all():
+			games = Game.objects.filter(player=player)
+
+			data.append({
+				'player': player.username,
+				'gamesPlayed': games.count(),
+				'gamesWon': games.filter(win=True).count(),
+				'gamesLost': games.filter(win=False, tie=False).count(),
+				'gamesTied': games.filter(tie=True).count(),
+				'winPercent': round((games.filter(win=True).count() / games.count()) * 100) if games.count() > 0 else 0
+			})
+
+		games = Game.objects.all()
+		data.append({
+			'player': 'AI',
+			'gamesPlayed': games.count(),
+			'gamesWon': games.filter(win=False, tie=False).count(),
+			'gamesLost': games.filter(win=True).count(),
+			'gamesTied': games.filter(tie=True).count(),
+			'winPercent': round((games.filter(win=False, tie=False).count() / games.count()) * 100) if games.count() > 0 else 0
+		})
+
+		data.sort(key=lambda v: (v['gamesWon'], v['gamesPlayed']), reverse=True)
+
+		return Response({'objects': data})

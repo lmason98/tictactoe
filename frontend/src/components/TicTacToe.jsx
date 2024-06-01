@@ -24,7 +24,7 @@ function TicTacToe({size, doEndGame}) {
     setGameOver(true)
 
     // Reset the game board
-    setTimeout(() => doEndGame(), 5000)
+    doEndGame()
   }
 
   // Calc cell size based on window size and board size prop

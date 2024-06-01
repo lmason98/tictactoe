@@ -10,7 +10,7 @@ class CreatedUpdatedAdminMixin:
 
 class GameAdmin(CreatedUpdatedAdminMixin, admin.ModelAdmin):
 
-	list_display = CreatedUpdatedAdminMixin.list_display + ('id', 'player', 'win', 'tie', 'over')
+	list_display = ('id', 'player', 'win', 'tie') + CreatedUpdatedAdminMixin.list_display
 	search_fields = ('player',)
 
 
