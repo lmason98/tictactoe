@@ -7,11 +7,12 @@
 ## Setup
 
 ### Prerequisites
-1. Have python3.8+ installed
-2. Have node 20 installed
+1. Run on ubuntu or other linux distro
+2. Have python3.8+ installed
+3. Have node 20 installed
 
 ### Backend:
-Zip file contains a .env file with credentials for a test AWS RDS database
+The zipped project contains a .env file with credentials for a test AWS RDS database
 1. Navigate to backend directory
 2. Create virtualenv `python3.8 -m venv .ttt_env/`
 3. Source virtualenv `source .ttt_env/bin/activate`

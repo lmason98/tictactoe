@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {AppBar, Box, Button, Grid, Toolbar, Typography} from '@mui/material'
-import {Logout, Add, Person, FormatListNumbered} from '@mui/icons-material'
+import {Logout, Add, FormatListNumbered} from '@mui/icons-material'
 import TicTacToe from './TicTacToe'
 import {getUserName} from '../utils/auth'
 import StatsModal from "./StatsModal";
@@ -12,7 +12,6 @@ function Content({handleLogout}) {
 
   const [gameRunning, setGameRunning] = useState(false)
   const [statsModalOpen, setStatsModalOpen] = useState(false)
-  const [highScoreModalOpen, setHighScoreModalOpen] = useState(false)
   const [newGameButtonText, setNewGameButtonText] = useState('New Game')
 
   const handleGameStart = () => {
